@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MoleComponent } from './game/game/mole/mole.component';
+import { MoleComponent } from './game/mole/mole.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
