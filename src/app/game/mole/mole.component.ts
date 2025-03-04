@@ -22,6 +22,7 @@ import {
   startWith,
   take,
   takeUntil,
+  tap,
   timer,
 } from 'rxjs';
 import { peep, trackGameTime, whackAMole } from '../custom-operators';
@@ -164,20 +165,20 @@ export class MoleComponent implements OnInit, OnDestroy {
 
     /**Create game loop */
 
-    const holes = [
-      this.hole1,
-      this.hole2,
-      this.hole3,
-      this.hole4,
-      this.hole5,
-      this.hole6,
+    const moles = [
+      this.mole1,
+      this.mole2,
+      this.mole3,
+      this.mole4,
+      this.mole5,
+      this.mole6,
     ];
 
     const createGame = delayGameStart$
       .pipe(
         concatMap(() =>
           this.lastHoleUpdated.pipe(
-            peep(holes, 350, 1000),
+            peep(moles, 350, 1000),
             takeUntil(timer(gameDuration * 1000))
           )
         )

@@ -21,7 +21,7 @@ function randomHole(
 }
 
 export function peep<T extends number>(
-  holes: ElementRef<HTMLDivElement>[],
+  moles: ElementRef<HTMLDivElement>[],
   minUpTime: number,
   maxUpTime: number
 ) {
@@ -29,13 +29,13 @@ export function peep<T extends number>(
     return source.pipe(
       map((lastHole) => ({
         upTime: randomTime(minUpTime, maxUpTime),
-        holeIdx: randomHole(holes, lastHole),
+        moleIdx: randomHole(moles, lastHole),
       })),
-      concatMap(({ upTime, holeIdx }) => {
+      concatMap(({ upTime, moleIdx }) => {
         if (source instanceof BehaviorSubject) {
-          source.next(holeIdx);
+          source.next(moleIdx);
         }
-        const hole = holes[holeIdx].nativeElement;
+        const hole = moles[moleIdx].nativeElement;
         hole.classList.add('up');
         return timer(upTime).pipe(tap(() => hole.classList.remove('up')));
       })

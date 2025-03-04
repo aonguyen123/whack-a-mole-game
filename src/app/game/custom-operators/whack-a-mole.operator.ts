@@ -7,7 +7,7 @@ export function whackAMole<T extends HTMLElement>(nativeElement: T) {
       filter((event) => event.isTrusted),
       tap(() => {
         if (nativeElement.parentElement) {
-          nativeElement.parentElement.classList.remove('up');
+          nativeElement.classList.remove('up');
         }
       }),
       map(() => SCORE_ACTION.ADD)
