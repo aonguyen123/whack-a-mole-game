@@ -12,14 +12,18 @@ import {
   BehaviorSubject,
   Observable,
   Subscription,
+  combineLatest,
   concatMap,
   delay,
+  filter,
   fromEvent,
   map,
   merge,
+  of,
   scan,
   shareReplay,
   startWith,
+  switchMap,
   take,
   takeUntil,
   tap,
@@ -84,6 +88,8 @@ export class MoleComponent implements OnInit, OnDestroy {
   mole6!: ElementRef<HTMLDivElement>;
 
   score$!: Observable<number>;
+  hightScore$!: Observable<number>;
+  hightScoreLocal$!: Observable<number>;
   timeLeft$!: Observable<number>;
   delayGameMsg$!: Observable<number>;
   subscription = new Subscription();
@@ -144,7 +150,12 @@ export class MoleComponent implements OnInit, OnDestroy {
         (score, action) => (action === SCORE_ACTION.RESET ? 0 : score + 1),
         0
       ),
-      startWith(0)
+      startWith(0),
+      shareReplay(1)
+    );
+
+    this.hightScoreLocal$ = of(localStorage.getItem('score')).pipe(
+      map((v) => (v ? Number(v) : 0))
     );
 
     const delayTime = 3;
@@ -167,6 +178,19 @@ export class MoleComponent implements OnInit, OnDestroy {
     this.timeLeft$ = merge(
       resetTime$,
       delayGameStart$.pipe(trackGameTime(gameDuration))
+    ).pipe(shareReplay(1));
+
+    this.hightScore$ = combineLatest([this.timeLeft$, this.score$]).pipe(
+      filter(([time, score]) => time === 0),
+      switchMap(([time, score]) => {
+        const t = Number(localStorage.getItem('score') || 0);
+        if (score > t) {
+          localStorage.setItem('score', score.toString());
+          return of(score);
+        }
+        return of(t);
+      }),
+      startWith(Number(localStorage.getItem('score') || 0))
     );
 
     /**Create game loop */

@@ -1,4 +1,4 @@
-<div class="p-8 max-w-5xl m-auto">
+<div class="p-8 max-w-5xl m-auto touch-manipulation">
   <div>
     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center">
       Whack A Mole
@@ -7,14 +7,16 @@
 
   <div class="flex flex-col md:flex-row gap-4 mt-8">
     <div
-      class="stats outline-1 outline-black/5 stats-horizontal md:stats-vertical shadow"
+      class="stats outline-1 outline-black/5 stats-horizontal md:stats-vertical shadow w-full md:w-[200px] lg:w-[220px] shrink-0"
     >
       <div class="stat">
         <div class="stat-title text-[10px] lg:text-xs">
           Total Mole Your Whacked
         </div>
         <div class="stat-value text-xl lg:text-3xl">{{ score$ | async }}</div>
-        <div class="stat-desc text-[10px] lg:text-xs">Highest score: 12</div>
+        <div class="stat-desc text-[10px] lg:text-xs">
+          Highest score: {{ hightScore$ | async }}
+        </div>
       </div>
 
       <div class="stat">
