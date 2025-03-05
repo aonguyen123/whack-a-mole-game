@@ -1,6 +1,6 @@
 <div class="p-8 max-w-5xl m-auto">
   <div>
-    <h1 class="text-lg md:text-2xl lg:text-5xl font-bold text-center">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center">
       Whack A Mole
     </h1>
   </div>
@@ -34,58 +34,88 @@
 
     <div class="grid grid-cols-3 grid-rows-2 gap-3 bg-base-200 flex-1">
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole1
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole1
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole1
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole2
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole2
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole2
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole3
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole3
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole3
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole4
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole4
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole4
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole5
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole5
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole5
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
       <div
-        class="basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
+        class="flex justify-center items-end basis-3xs after:bg-[url('/assets/images/dirt.svg')] after:bg-cover after:bg-no-repeat after:bg-top after:top-[130px] sm:after:bg-top sm:after:top-[118px] md:after:bg-top md:after:top-[118px] lg:after:top-[104px] overflow-hidden after:absolute after:left-0 after:bottom-0 after:right-0 relative h-40"
         #hole6
       >
         <div
-          class="bg-[url('/assets/images/mole.svg')] absolute bg-no-repeat w-full h-full bg-[auto_70%] md:bg-[auto_80%] bg-bottom top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
-          #mole6
-        ></div>
+          class="flex justify-center items-end h-[50%] sm:h-[60%] md:h-[65%] lg:h-[70%] w-full relative"
+        >
+          <div
+            app-mole-item
+            #mole6
+            class="w-max h-full absolute top-full transition-all ease-[ease] duration-[0.4s] transition-normal"
+          ></div>
+        </div>
       </div>
     </div>
   </div>
@@ -117,26 +147,3 @@
     </div>
   </ng-container>
 </div>
-
-<!-- <div
-  class="w-[350px] h-[300px] md:w-[600px] md:h-[400px] flex flex-wrap m-auto bg-base-200 flex-none"
->
-  <div class="hole hole1" [style]="'--hole-image:' + holeSrc" #hole1>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole1></div>
-  </div>
-  <div class="hole hole2" [style]="'--hole-image:' + holeSrc" #hole2>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole2></div>
-  </div>
-  <div class="hole hole3" [style]="'--hole-image:' + holeSrc" #hole3>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole3></div>
-  </div>
-  <div class="hole hole4" [style]="'--hole-image:' + holeSrc" #hole4>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole4></div>
-  </div>
-  <div class="hole hole5" [style]="'--hole-image:' + holeSrc" #hole5>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole5></div>
-  </div>
-  <div class="hole hole6" [style]="'--hole-image:' + holeSrc" #hole6>
-    <div class="mole" [style]="'--mole-image:' + moleSrc" #mole6></div>
-  </div>
-</div> -->

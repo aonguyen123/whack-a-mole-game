@@ -28,10 +28,16 @@ import {
 import { peep, trackGameTime, whackAMole } from '../custom-operators';
 import { RemainingTimePipe, WhackAMoleMessagePipe } from '../pipes';
 import { SCORE_ACTION } from './mole.enum';
+import { MoleItemComponent } from '../components/mole-item/mole-item.component';
 
 @Component({
   selector: 'app-mole',
-  imports: [CommonModule, RemainingTimePipe, WhackAMoleMessagePipe],
+  imports: [
+    CommonModule,
+    RemainingTimePipe,
+    WhackAMoleMessagePipe,
+    MoleItemComponent,
+  ],
   templateUrl: 'mole.component.html',
   styleUrls: ['mole.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -156,7 +162,7 @@ export class MoleComponent implements OnInit, OnDestroy {
       shareReplay(1)
     );
 
-    const gameDuration = 10;
+    const gameDuration = 15;
     const resetTime$ = startButtonClicked$.pipe(map(() => gameDuration));
     this.timeLeft$ = merge(
       resetTime$,
