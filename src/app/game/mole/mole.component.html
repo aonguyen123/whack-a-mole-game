@@ -1,4 +1,7 @@
-<div class="p-8 max-w-5xl m-auto touch-manipulation">
+<div
+  class="p-8 max-w-5xl m-auto touch-manipulation select-none"
+  (dblclick)="$event.preventDefault()"
+>
   <div>
     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center">
       Whack A Mole
@@ -27,7 +30,13 @@
           </ng-container>
         </div>
         <div class="stat-desc">
-          <button #start class="btn btn-primary btn-sm">Start</button>
+          <button
+            #start
+            class="btn btn-primary btn-sm"
+            [disabled]="disabledStartButton$ | async"
+          >
+            Start
+          </button>
         </div>
       </div>
     </div>

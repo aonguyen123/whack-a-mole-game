@@ -26,13 +26,12 @@ import {
   switchMap,
   take,
   takeUntil,
-  tap,
   timer,
 } from 'rxjs';
+import { MoleItemComponent } from '../components/mole-item/mole-item.component';
 import { peep, trackGameTime, whackAMole } from '../custom-operators';
 import { RemainingTimePipe, WhackAMoleMessagePipe } from '../pipes';
 import { SCORE_ACTION } from './mole.enum';
-import { MoleItemComponent } from '../components/mole-item/mole-item.component';
 
 @Component({
   selector: 'app-mole',
@@ -89,11 +88,11 @@ export class MoleComponent implements OnInit, OnDestroy {
 
   score$!: Observable<number>;
   hightScore$!: Observable<number>;
-  hightScoreLocal$!: Observable<number>;
   timeLeft$!: Observable<number>;
   delayGameMsg$!: Observable<number>;
   subscription = new Subscription();
   lastHoleUpdated = new BehaviorSubject<number>(-1);
+  disabledStartButton$!: Observable<boolean>;
 
   constructor(@Inject(APP_BASE_HREF) private readonly baseHref: string) {}
 
@@ -125,10 +124,6 @@ export class MoleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.score$ = of(0);
-    // this.delayGameMsg$ = of(3);
-    // this.timeLeft$ = of(10);
-
     const molesClickedArray$ = this.createMoleClickedObservables(
       this.mole1,
       this.mole2,
@@ -154,11 +149,7 @@ export class MoleComponent implements OnInit, OnDestroy {
       shareReplay(1)
     );
 
-    this.hightScoreLocal$ = of(localStorage.getItem('score')).pipe(
-      map((v) => (v ? Number(v) : 0))
-    );
-
-    const delayTime = 3;
+    const delayTime = 5;
     this.delayGameMsg$ = startButtonClicked$.pipe(
       concatMap(() =>
         timer(0, 1000).pipe(
@@ -191,6 +182,18 @@ export class MoleComponent implements OnInit, OnDestroy {
         return of(t);
       }),
       startWith(Number(localStorage.getItem('score') || 0))
+    );
+
+    this.disabledStartButton$ = combineLatest([
+      startButtonClicked$,
+      this.timeLeft$,
+    ]).pipe(
+      map(([actionScore, timeLeft]) => {
+        if (actionScore === SCORE_ACTION.RESET && timeLeft !== 0) {
+          return true;
+        }
+        return false;
+      })
     );
 
     /**Create game loop */
