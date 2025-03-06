@@ -2,16 +2,16 @@ import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
+  inject,
   Inject,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   BehaviorSubject,
-  Observable,
-  Subscription,
   combineLatest,
   concatMap,
   delay,
@@ -19,10 +19,12 @@ import {
   fromEvent,
   map,
   merge,
+  Observable,
   of,
   scan,
   shareReplay,
   startWith,
+  Subscription,
   switchMap,
   take,
   takeUntil,
@@ -45,7 +47,7 @@ import { SCORE_ACTION } from './mole.enum';
   styleUrls: ['mole.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MoleComponent implements OnInit, OnDestroy {
+export class MoleComponent implements OnInit {
   @ViewChild('start', { static: true, read: ElementRef })
   startButton!: ElementRef<HTMLButtonElement>;
 
@@ -93,6 +95,7 @@ export class MoleComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   lastHoleUpdated = new BehaviorSubject<number>(-1);
   disabledStartButton$!: Observable<boolean>;
+  destroyRef = inject(DestroyRef);
 
   constructor(@Inject(APP_BASE_HREF) private readonly baseHref: string) {}
 
@@ -207,21 +210,16 @@ export class MoleComponent implements OnInit, OnDestroy {
       this.mole6,
     ];
 
-    const createGame = delayGameStart$
+    delayGameStart$
       .pipe(
         concatMap(() =>
           this.lastHoleUpdated.pipe(
             peep(moles, 350, 1000),
             takeUntil(timer(gameDuration * 1000))
           )
-        )
+        ),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
-
-    this.subscription.add(createGame);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
