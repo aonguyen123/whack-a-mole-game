@@ -21,7 +21,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public/assets"
+                "input": "public/"
               }
             ],
             "styles": ["src/styles.css"],
