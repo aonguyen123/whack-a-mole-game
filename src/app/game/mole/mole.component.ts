@@ -28,12 +28,14 @@ import {
   switchMap,
   take,
   takeUntil,
+  tap,
   timer,
 } from 'rxjs';
 import { MoleItemComponent } from '../components/mole-item/mole-item.component';
 import { peep, trackGameTime, whackAMole } from '../custom-operators';
 import { RemainingTimePipe, WhackAMoleMessagePipe } from '../pipes';
 import { SCORE_ACTION } from './mole.enum';
+import { whackSound } from '../custom-operators/whack-sound.operator';
 
 @Component({
   selector: 'app-mole',
@@ -88,6 +90,8 @@ export class MoleComponent implements OnInit {
   @ViewChild('mole6', { static: true, read: ElementRef })
   mole6!: ElementRef<HTMLDivElement>;
 
+  @ViewChild('snap', { static: true }) snap!: ElementRef<HTMLAudioElement>;
+
   score$!: Observable<number>;
   hightScore$!: Observable<number>;
   timeLeft$!: Observable<number>;
@@ -99,30 +103,19 @@ export class MoleComponent implements OnInit {
 
   constructor(@Inject(APP_BASE_HREF) private readonly baseHref: string) {}
 
-  get moleSrc(): string {
-    return this.buildImage('mole.svg');
-  }
-
-  get holeSrc(): string {
-    return this.buildImage('dirt.svg');
-  }
-
-  private buildImage(image: string) {
+  get soundUrl() {
     const isEndWithSlash = this.baseHref.endsWith('/');
-    console.log(this.baseHref);
-
-    const imagePath = `${this.baseHref}${
-      isEndWithSlash ? '' : '/'
-    }assets/images/${image}`;
-
-    return `url('${imagePath}')`;
+    return `${this.baseHref}${isEndWithSlash ? '' : '/'}assets/audio/whack.mp3`;
   }
 
   private createMoleClickedObservables(
     ...moles: ElementRef<HTMLDivElement>[]
   ): Observable<SCORE_ACTION>[] {
     return moles.map(({ nativeElement }) =>
-      fromEvent(nativeElement, 'click').pipe(whackAMole(nativeElement))
+      fromEvent(nativeElement, 'click').pipe(
+        whackAMole(nativeElement),
+        whackSound(this.snap.nativeElement)
+      )
     );
   }
 
