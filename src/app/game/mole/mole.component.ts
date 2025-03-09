@@ -215,7 +215,7 @@ export class MoleComponent implements OnInit {
       .pipe(
         tap((_) => {
           const sound = this.soundBgGame.nativeElement;
-          sound.currentTime = 20;
+          sound.currentTime = 13;
           sound.loop = true;
           if (_ === SCORE_ACTION.RESET) {
             sound.play();
