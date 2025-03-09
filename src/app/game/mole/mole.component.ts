@@ -21,6 +21,7 @@ import {
   merge,
   Observable,
   of,
+  repeat,
   scan,
   shareReplay,
   startWith,
@@ -92,6 +93,9 @@ export class MoleComponent implements OnInit {
 
   @ViewChild('snap', { static: true }) snap!: ElementRef<HTMLAudioElement>;
 
+  @ViewChild('soundBgGame', { static: true })
+  soundBgGame!: ElementRef<HTMLAudioElement>;
+
   score$!: Observable<number>;
   hightScore$!: Observable<number>;
   timeLeft$!: Observable<number>;
@@ -99,13 +103,24 @@ export class MoleComponent implements OnInit {
   subscription = new Subscription();
   lastHoleUpdated = new BehaviorSubject<number>(-1);
   disabledStartButton$!: Observable<boolean>;
+  gameSound$!: Observable<any>;
   destroyRef = inject(DestroyRef);
 
   constructor(@Inject(APP_BASE_HREF) private readonly baseHref: string) {}
 
   get soundUrl() {
+    return this.buildSound('whack');
+  }
+
+  get soundUrlBackgroundGame() {
+    return this.buildSound('soundBackgroundGame');
+  }
+
+  private buildSound(sound: string) {
     const isEndWithSlash = this.baseHref.endsWith('/');
-    return `${this.baseHref}${isEndWithSlash ? '' : '/'}assets/audio/whack.mp3`;
+    return `${this.baseHref}${
+      isEndWithSlash ? '' : '/'
+    }assets/audio/${sound}.mp3`;
   }
 
   private createMoleClickedObservables(
@@ -160,7 +175,7 @@ export class MoleComponent implements OnInit {
       shareReplay(1)
     );
 
-    const gameDuration = 15;
+    const gameDuration = 60;
     const resetTime$ = startButtonClicked$.pipe(map(() => gameDuration));
     this.timeLeft$ = merge(
       resetTime$,
@@ -191,6 +206,27 @@ export class MoleComponent implements OnInit {
         return false;
       })
     );
+
+    /**Game sound setting */
+    merge(
+      startButtonClicked$,
+      delayGameStart$.pipe(concatMap(() => timer(gameDuration * 1000)))
+    )
+      .pipe(
+        tap((_) => {
+          const sound = this.soundBgGame.nativeElement;
+          sound.currentTime = 20;
+          sound.loop = true;
+          if (_ === SCORE_ACTION.RESET) {
+            sound.play();
+          }
+          if (_ === 0) {
+            sound.pause();
+          }
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe();
 
     /**Create game loop */
 
