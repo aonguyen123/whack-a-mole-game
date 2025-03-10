@@ -195,16 +195,22 @@ export class MoleComponent implements OnInit {
       startWith(Number(localStorage.getItem('score') || 0))
     );
 
-    this.disabledStartButton$ = combineLatest([
+    this.disabledStartButton$ = merge(
       startButtonClicked$,
-      this.timeLeft$,
-    ]).pipe(
-      map(([actionScore, timeLeft]) => {
-        if (actionScore === SCORE_ACTION.RESET && timeLeft !== 0) {
+      delayGameStart$.pipe(
+        concatMap(() => timer(gameDuration * 1000)),
+        map(() => SCORE_ACTION.TIMEOUT)
+      )
+    ).pipe(
+      scan((acc, cur) => {
+        if (cur === SCORE_ACTION.RESET) {
           return true;
         }
-        return false;
-      })
+        if (cur === SCORE_ACTION.TIMEOUT) {
+          return false;
+        }
+        return acc;
+      }, false)
     );
 
     /**Game sound setting */
