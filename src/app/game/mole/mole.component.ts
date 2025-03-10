@@ -21,7 +21,6 @@ import {
   merge,
   Observable,
   of,
-  repeat,
   scan,
   shareReplay,
   startWith,
@@ -34,18 +33,13 @@ import {
 } from 'rxjs';
 import { MoleItemComponent } from '../components/mole-item/mole-item.component';
 import { peep, trackGameTime, whackAMole } from '../custom-operators';
-import { RemainingTimePipe, WhackAMoleMessagePipe } from '../pipes';
-import { SCORE_ACTION } from './mole.enum';
 import { whackSound } from '../custom-operators/whack-sound.operator';
+import { WhackAMoleMessagePipe } from '../pipes';
+import { SCORE_ACTION } from './mole.enum';
 
 @Component({
   selector: 'app-mole',
-  imports: [
-    CommonModule,
-    RemainingTimePipe,
-    WhackAMoleMessagePipe,
-    MoleItemComponent,
-  ],
+  imports: [CommonModule, WhackAMoleMessagePipe, MoleItemComponent],
   templateUrl: 'mole.component.html',
   styleUrls: ['mole.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

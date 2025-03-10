@@ -10,6 +10,6 @@ export class RemainingTimePipe implements PipeTransform {
     }
 
     const units = seconds > 1 ? 'seconds' : 'second';
-    return `${seconds} ${units}`;
+    return `${units}`;
   }
 }
