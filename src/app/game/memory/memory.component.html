@@ -1,9 +1,11 @@
 <div class="w-full p-6">
   <div class="w-full flex justify-center">
-    <div class="stats stats-vertical shadow w-full md:max-w-[500px]">
+    <div
+      class="stats stats-vertical shadow outline-1 outline-black/5 w-full md:max-w-[500px]"
+    >
       <div class="stat">
         <div class="stat-title">Level</div>
-        <div class="stat-value">1</div>
+        <div class="stat-value">{{ level$ | async }}</div>
       </div>
 
       <div class="stat">
@@ -19,33 +21,69 @@
     <div
       class="grid grid-cols-3 grid-rows-3 gap-4 w-full md:max-w-[300px] h-[300px]"
     >
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
-      <div #node class="bg-base-300"></div>
+      <div
+        #node1
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node2
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node3
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node4
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node5
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node6
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node7
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node8
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
+      <div
+        #node9
+        class="border-[1px] border-primary transition-all ease-in duration-[0.4s]"
+      ></div>
     </div>
   </div>
 
-  <div role="alert" class="alert w-full md:max-w-[500px] m-auto mt-7">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      class="stroke-info h-6 w-6 shrink-0"
+  <ng-container *ngIf="{ delaySequence: delaySequenceMsg$ | async } as vm">
+    <div
+      role="alert"
+      class="alert w-full md:max-w-[500px] m-auto mt-7"
+      *ngIf="vm.delaySequence === 0"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      ></path>
-    </svg>
-    <span>Your turn</span>
-  </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="stroke-info h-6 w-6 shrink-0"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        ></path>
+      </svg>
+      <span>{{ vm.delaySequence | turnOn }}</span>
+    </div>
+  </ng-container>
 </div>
 {{ deplayGameMsg$ | async }}
+{{ delaySequenceMsg$ | async }}
+
+{{ checkIfGameOver$ | async | gameOver }}

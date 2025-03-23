@@ -35,6 +35,7 @@ export function peep<T extends number>(
         if (source instanceof BehaviorSubject) {
           source.next(moleIdx);
         }
+
         const hole = moles[moleIdx].nativeElement;
         hole.classList.add('up');
         return timer(upTime).pipe(tap(() => hole.classList.remove('up')));
